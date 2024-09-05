@@ -1,4 +1,4 @@
-import ButtonComponent from "../../components/ButtonComponent";
+import ButtonComponent from "../../components/buttonComponent";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import Footer from "../../components/footer";
 
