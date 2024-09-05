@@ -3,8 +3,8 @@ import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import Footer from "../../components/footer";
 import { useEffect, useState } from "react";
 import { getVietnameseSongs } from "../../services/SongsService";
-import { getAlbums } from "../../services/AlbumServie";
 import { fetchTopVietnameseArtists } from "../../services/ArtistService";
+import { getAlbums } from "../../services/AlbumService";
 
 function HomePage() {
   const [albums, setAlbums] = useState([]);
