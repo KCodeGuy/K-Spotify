@@ -1,0 +1,93 @@
+@import "../../assets/base/base.scss"; // Import base.scss
+
+.button {
+  background-color: $spotify-green-color;
+  color: $black-color;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-weight: bold;
+
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: darken($spotify-green-color, 10%);
+  }
+
+  &:hover {
+    background-color: $spotify-green--hover-color;
+  }
+  &.primary {
+    background-color: $spotify-green-color;
+  }
+  &.primary:hover {
+    background-color: $spotify-green--hover-color;
+  }
+
+  &.success {
+    background-color: $success-color;
+  }
+  &.success:hover {
+    background-color: $success-hover-color;
+  }
+
+  &.error {
+    background-color: $error-color;
+  }
+  &.error:hover {
+    background-color: $error-hover-color;
+  }
+
+  &.warning {
+    background-color: $warning-color;
+  }
+  &.warning:hover {
+    background-color: $warning-hover-color;
+  }
+
+  &.red {
+    background-color: $red-color;
+  }
+  &.red:hover {
+    background-color: $red-hover-color;
+  }
+
+  &.dark {
+    background-color: $spotify-black-color;
+    color: $white-color;
+    opacity: 0.8;
+  }
+  &.dark:hover {
+    opacity: 0.6;
+    color: $white-color;
+    background-color: $spotify-black-color;
+  }
+
+  &.light {
+    border: 1px solid $black-color;
+    background-color: $white-color;
+    color: $black-color;
+  }
+  &.light:hover {
+    background-color: $white-hover-color;
+  }
+
+  // Size
+  &.sm {
+    padding: 4px 10px;
+    font-size: 0.8rem;
+  }
+
+  &.md {
+    padding: 8px 20px;
+  }
+
+  &.lg {
+    padding: 12px 32px;
+  }
+
+  & + & {
+    margin-left: 12px;
+  }
+}

@@ -1,10 +1,35 @@
 import "./App.css";
+import "./assets/base/base.scss";
+import DefaultLayout from "./components/defaultLayout";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { userRoutes } from "./routes";
 
 function App() {
   return (
-    <>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
-    </>
+    <div>
+      <Router>
+        <Routes>
+          {userRoutes.map((route, index) => {
+            const RouteComponent = route.component;
+            return (
+              <Route
+                key={index}
+                path={route.path}
+                element={
+                  route.isDefaultLayout ? (
+                    <DefaultLayout>
+                      <RouteComponent />
+                    </DefaultLayout>
+                  ) : (
+                    <RouteComponent />
+                  )
+                }
+              ></Route>
+            );
+          })}
+        </Routes>
+      </Router>
+    </div>
   );
 }
 

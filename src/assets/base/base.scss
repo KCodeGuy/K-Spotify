@@ -1,0 +1,101 @@
+// base.scss
+
+// Spotify Color Variables
+$spotify-green-color: #1db954;
+$spotify-green--hover-color: #31cd68;
+$spotify-black-color: #191414;
+$spotify-black-secondary-color: #292727;
+$dark-gray-color: #535353;
+$dark-secondary-color: #696868;
+$light-gray-color: #b3b3b3;
+
+// COLOR VARIABLES
+$text-color: #3333;
+$white-color: #ffffff;
+$black-color: #000000;
+$primary-color: #247cd4;
+$secondary-color: #e9f7ff;
+$error-color: #e91e63;
+$success-color: #4caf50;
+$warning-color: #fb8c00;
+$red-color: #d70200;
+$light-color: #f0f2f5;
+$dark-color: #344767;
+
+$white-hover-color: #ebe8e8;
+$black-hover-color: #535252;
+$primary-hover-color: #3776c7;
+$error-hover-color: #dd4376;
+$success-hover-color: #58b15d;
+$warning-hover-color: #db9744;
+$red-hover-color: #ce2927;
+$light-hover-color: #d5d6d6;
+$dark-hover-color: #505e77;
+
+// Global Styles
+body {
+  background-color: $spotify-black-color;
+  color: $white-color;
+  font-family: "Montserrat", sans-serif;
+}
+
+.bg-dark-secondary {
+  background-color: $spotify-black-secondary-color;
+}
+
+.bg-primary {
+  background-color: #1db954;
+}
+.bg-dark-third {
+  background-color: #3a3737;
+}
+
+.pd-box-lg {
+  padding: 12px 16px;
+}
+
+.text-color {
+  color: $white-color;
+  opacity: 0.8;
+}
+
+.h-full-screen {
+  height: calc(100vh - 32vh);
+}
+
+.rounded-lg-important {
+  border-radius: 25px !important;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.rotate-img {
+  animation: rotate 5s linear infinite;
+  transform-origin: center; /* Ensure the rotation happens around the center */
+}
+
+/* Target the entire audio player */
+.rhap_container {
+  background-color: #333 !important; /* Dark background */
+  border-radius: 10px; /* Rounded corners */
+  padding: 10px; /* Add some padding */
+}
+
+.bg-primary-gradient {
+  background: linear-gradient(to bottom, #41ad67, black);
+}
+
+.z-index-1 {
+  z-index: 1;
+}
+
+.z-top {
+  z-index: 100 !important;
+}

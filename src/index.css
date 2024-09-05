@@ -13,3 +13,8 @@ html, body {
   height: 100%;
   font-family: Arial, sans-serif;
 }
+
+body {
+  padding: 16px 32px;
+  height: 100vh;
+}
