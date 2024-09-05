@@ -3,7 +3,7 @@ import QueueMusicIcon from "@mui/icons-material/QueueMusic";
 import "react-h5-audio-player/lib/styles.css";
 import AddIcon from "@mui/icons-material/Add";
 import PlaylistPlayIcon from "@mui/icons-material/PlaylistPlay";
-import ButtonComponent from "../ButtonComponent";
+import ButtonComponent from "../buttonComponent";
 
 export default function PlayingNavigation() {
   return (
