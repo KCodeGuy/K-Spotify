@@ -1,7 +1,7 @@
-import ButtonComponent from "../ButtonComponent";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
 import SearchIcon from "@mui/icons-material/Search";
 import GraphicEqIcon from "@mui/icons-material/GraphicEq";
+import ButtonComponent from "../ButtonComponent";
 
 export default function Header() {
   return (
