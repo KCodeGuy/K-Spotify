@@ -1,21 +1,51 @@
 import Header from "../header";
 import SideBar from "../sideBar";
 import PlayingNavigation from "../playingNavigation";
+import React, { useEffect, useState } from "react";
 
 // eslint-disable-next-line react/prop-types
 function DefaultLayout({ children }) {
+  const [currentSong, setCurrentSong] = useState(null); // State for currently playing song
+  const [typePlaying, setTypePlaying] = useState("");
+  const [favoriteSongs, setFavoriteSongs] = useState([]);
+
+  // Load playlists from localStorage on component mount
+  useEffect(() => {
+    const result = localStorage.getItem("favoriteSongs");
+    if (result) {
+      try {
+        setFavoriteSongs(JSON.parse(result));
+      } catch (error) {
+        console.error("Error parsing playlists from localStorage", error);
+      }
+    }
+  }, []);
   return (
     <div className="w-full ">
       <Header />
       <div className="grid grid-cols-12 gap-4 my-3">
         <div className="col-span-3">
-          <SideBar />
+          <SideBar
+            setTypePlaying={setTypePlaying}
+            favoriteSongs={favoriteSongs}
+            setFavoriteSongs={setFavoriteSongs}
+            setCurrentSong={setCurrentSong}
+          />
         </div>
         <div className="col-span-9 rounded-lg-important h-full-screen">
-          <div>{children}</div>
+          {/* Pass state and updater function to children */}
+          {React.cloneElement(children, {
+            setCurrentSong,
+            setTypePlaying,
+          })}
         </div>
       </div>
-      <PlayingNavigation />
+      <PlayingNavigation
+        favoriteSongs={favoriteSongs}
+        song={currentSong}
+        type={typePlaying}
+        setFavoriteSongs={setFavoriteSongs}
+      />
     </div>
   );
 }

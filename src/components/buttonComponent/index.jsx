@@ -5,8 +5,8 @@ import PropTypes from "prop-types";
 import "./styles.scss";
 
 const ButtonComponent = ({
-  type,
-  size,
+  type = "primary",
+  size = "md",
   children,
   onClick,
   style,
@@ -42,11 +42,6 @@ ButtonComponent.propTypes = {
   action: PropTypes.string,
   className: PropTypes.string,
   children: PropTypes.node.isRequired,
-};
-
-ButtonComponent.defaultProps = {
-  type: "primary",
-  size: "md",
 };
 
 export default ButtonComponent;

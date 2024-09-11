@@ -3,6 +3,8 @@ import HomePage from "../pages/homePage";
 import ListSongs from "../pages/listSongPage";
 import Login from "../pages/loginPage";
 import Notfound from "../pages/notFoundPage";
+import SearchPage from "../pages/searchPage";
+import ViewAllItems from "../pages/viewAllPage";
 
 const userRoutes = [
   {
@@ -11,13 +13,23 @@ const userRoutes = [
     isDefaultLayout: true,
   },
   {
+    path: "/search/:txtSearch",
+    component: SearchPage,
+    isDefaultLayout: true,
+  },
+  {
     path: "/albums",
     component: AlbumList,
     isDefaultLayout: true,
   },
   {
-    path: "/songs",
+    path: "/playlist/:type/:id",
     component: ListSongs,
+    isDefaultLayout: true,
+  },
+  {
+    path: "/viewAll/:listName",
+    component: ViewAllItems,
     isDefaultLayout: true,
   },
   {

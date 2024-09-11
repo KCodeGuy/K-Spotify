@@ -20,8 +20,10 @@
   }
   &.primary {
     background-color: $spotify-green-color;
+    color: $white-color;
   }
   &.primary:hover {
+    color: $white-color;
     background-color: $spotify-green--hover-color;
   }
 
@@ -54,9 +56,9 @@
   }
 
   &.dark {
-    background-color: $spotify-black-color;
+    --tw-bg-opacity: 1;
+    background-color: rgb(64 64 64 / var(--tw-bg-opacity));
     color: $white-color;
-    opacity: 0.8;
   }
   &.dark:hover {
     opacity: 0.6;
