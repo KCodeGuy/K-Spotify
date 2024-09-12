@@ -1,13 +1,13 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
-import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
-import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+import CloseIcon from "@mui/icons-material/Close";
+import IconButton from "@mui/material/IconButton";
 
 const BootstrapDialog = styled(Dialog)(({ theme, width }) => ({
   "& .MuiDialogContent-root": {
@@ -17,10 +17,10 @@ const BootstrapDialog = styled(Dialog)(({ theme, width }) => ({
     padding: theme.spacing(1),
   },
   "& .MuiPaper-root": {
-    width: width || "auto", // Default to 'auto' if no width prop is provided
-    backgroundColor: "#282828", // Customize background color
-    borderRadius: "8px", // Customize border-radius
-    boxShadow: "0px 3px 15px rgba(0, 0, 0, 0.2)", // Optional: Add a subtle shadow for effect
+    width: width || "auto",
+    backgroundColor: "#282828",
+    borderRadius: "8px",
+    boxShadow: "0px 3px 15px rgba(0, 0, 0, 0.2)",
     color: "#ffffff",
   },
 }));
@@ -36,7 +36,6 @@ export default function PopupComponent({
   tabs,
 }) {
   const [selectedTab, setSelectedTab] = useState(0);
-
   const handleTabChange = (event, newValue) => {
     setSelectedTab(newValue);
   };

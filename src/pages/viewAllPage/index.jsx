@@ -1,34 +1,37 @@
 import { useEffect, useState } from "react";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { useNavigate, useParams } from "react-router-dom";
-import { getSpotifyToken } from "../../services/SpotifyAuthService";
+import { CircularProgress } from "@mui/material";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+
 import { getAlbums } from "../../services/AlbumService";
 import { getVietnameseSongs } from "../../services/SongsService";
+import { getSpotifyToken } from "../../services/SpotifyAuthService";
 import { getTopVietnameseArtists } from "../../services/ArtistService";
-import { CircularProgress } from "@mui/material";
 import { getVietnamesePodcasts } from "../../services/PodcastService";
+import ButtonComponent from "../../components/buttonComponent";
 
 // eslint-disable-next-line react/prop-types
 export default function ViewAllItems({ setCurrentSong, setTypePlaying }) {
-  const { listName } = useParams(); // 'itemType' will capture 'albums' from the URL
+  const { listName } = useParams();
   const [listResult, setListResult] = useState([]);
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   const handlePlaySong = (song, type) => {
-    setCurrentSong(song); // Set the currently playing song
+    setCurrentSong(song);
     if (type) {
-      setTypePlaying(type); // Set the currently playing song
+      setTypePlaying(type);
     }
   };
 
   useEffect(() => {
     const loadData = async () => {
       try {
+        setLoading(true);
         const accessToken = await getSpotifyToken();
         let listAllResult = [];
         if (accessToken) {
-          // Execute API calls in parallel
           if (listName === "albums") {
             listAllResult = await getAlbums(accessToken, 50);
           } else if (listName === "artists") {
@@ -38,13 +41,11 @@ export default function ViewAllItems({ setCurrentSong, setTypePlaying }) {
           } else if (listName === "podcasts") {
             listAllResult = await getVietnamesePodcasts(accessToken, 50);
           }
-          // Update state with fetched data
           setListResult(listAllResult);
         }
       } catch (error) {
         console.error("Error fetching data: ", error);
       } finally {
-        // Set loading to false after data is fetched or if an error occurs
         setLoading(false);
       }
     };
@@ -61,14 +62,16 @@ export default function ViewAllItems({ setCurrentSong, setTypePlaying }) {
           <div className="mt-3">
             <div className="flex justify-between items-center">
               <p className="text-xl font-bold uppercase mb-2">Tất cả albums</p>
-              <button
-                className="text-sm font-medium text-color hover:underline"
-                onClick={() => navigate(`/`)}
-              >
+              <ButtonComponent size="md" onClick={() => navigate("/")}>
+                <ArrowBackIcon
+                  className="mb-0.5"
+                  sx={{ fontSize: "16px" }}
+                  type="light"
+                />{" "}
                 Trở về
-              </button>
+              </ButtonComponent>
             </div>
-            <div className="grid grid-cols-6 gap-2">
+            <div className="grid grid-cols-6 gap-2 mt-3">
               {listResult.map((album) => (
                 <div
                   key={album.id}
@@ -101,14 +104,16 @@ export default function ViewAllItems({ setCurrentSong, setTypePlaying }) {
           <div className="mt-3">
             <div className="flex justify-between items-center">
               <p className="text-xl font-bold uppercase mb-2">Tất cả bài hát</p>
-              <button
-                className="text-sm font-medium text-color hover:underline"
-                onClick={() => navigate(`/`)}
-              >
+              <ButtonComponent size="md" onClick={() => navigate("/")}>
+                <ArrowBackIcon
+                  className="mb-0.5"
+                  sx={{ fontSize: "16px" }}
+                  type="light"
+                />{" "}
                 Trở về
-              </button>
+              </ButtonComponent>
             </div>
-            <div className="grid grid-cols-6 gap-2">
+            <div className="grid grid-cols-6 gap-2 mt-3">
               {listResult.map((song, index) => (
                 <div
                   key={index}
@@ -141,14 +146,16 @@ export default function ViewAllItems({ setCurrentSong, setTypePlaying }) {
           <div className="mt-3">
             <div className="flex justify-between items-center">
               <p className="text-xl font-bold uppercase mb-2">Tất cả nghệ sĩ</p>
-              <button
-                className="text-sm font-medium text-color hover:underline"
-                onClick={() => navigate(`/`)}
-              >
+              <ButtonComponent size="md" onClick={() => navigate("/")}>
+                <ArrowBackIcon
+                  className="mb-0.5"
+                  sx={{ fontSize: "16px" }}
+                  type="light"
+                />{" "}
                 Trở về
-              </button>
+              </ButtonComponent>
             </div>
-            <div className="grid grid-cols-6 gap-2">
+            <div className="grid grid-cols-6 gap-2 mt-3">
               {listResult.map((artist) => (
                 <div
                   key={artist.id}
@@ -181,15 +188,17 @@ export default function ViewAllItems({ setCurrentSong, setTypePlaying }) {
           <div className="mt-3">
             <div className="flex justify-between items-center">
               <p className="text-xl font-bold uppercase mb-2">Tất cả podcast</p>
-              <button
-                className="text-sm font-medium text-color hover:underline"
-                onClick={() => navigate(`/`)}
-              >
+              <ButtonComponent size="md" onClick={() => navigate("/")}>
+                <ArrowBackIcon
+                  className="mb-0.5"
+                  sx={{ fontSize: "16px" }}
+                  type="light"
+                />{" "}
                 Trở về
-              </button>
+              </ButtonComponent>
             </div>
 
-            <div className="grid grid-cols-6 gap-2">
+            <div className="grid grid-cols-6 gap-2 mt-3">
               {listResult.map((podcast) => (
                 <div
                   key={podcast.id}

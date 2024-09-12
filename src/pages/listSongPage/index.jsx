@@ -1,13 +1,17 @@
 /* eslint-disable react/prop-types */
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { CircularProgress } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import GraphicEqIcon from "@mui/icons-material/GraphicEq";
+import DeleteIcon from "@mui/icons-material/Delete";
 import CheckIcon from "@mui/icons-material/Check";
 import AddIcon from "@mui/icons-material/Add";
-import { useEffect, useState } from "react";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+
+import ButtonComponent from "../../components/buttonComponent";
 import { getAlbumById } from "../../services/AlbumService";
 import { getSpotifyToken } from "../../services/SpotifyAuthService";
-import { useParams } from "react-router-dom";
-import { CircularProgress } from "@mui/material";
 import { formatDuration } from "../../utils/timeUltils";
 import { getPodcastById } from "../../services/PodcastService";
 import {
@@ -21,6 +25,7 @@ function ListSongs({ setCurrentSong, setTypePlaying }) {
   const [artistsInfo, setArtistsInfo] = useState({});
   const [loading, setLoading] = useState(true);
   const { type, id } = useParams();
+  const navigate = useNavigate();
 
   // Handle song playback
   const handlePlaySong = async (song, type) => {
@@ -208,7 +213,14 @@ function ListSongs({ setCurrentSong, setTypePlaying }) {
                 </button>
               </div>
               <div className="flex items-end text-color">
-                <span className="text-sm mr-2">Sắp xếp:</span>
+                <ButtonComponent size="md" onClick={() => navigate("/")}>
+                  <ArrowBackIcon
+                    className="mb-0.5"
+                    sx={{ fontSize: "16px" }}
+                    type="light"
+                  />{" "}
+                  Trở về
+                </ButtonComponent>
               </div>
             </div>
 
@@ -223,90 +235,167 @@ function ListSongs({ setCurrentSong, setTypePlaying }) {
                 </tr>
               </thead>
               <tbody>
-                {type === "albums" && listResult?.tracks?.items?.length > 0
-                  ? listResult?.tracks?.items?.map((song, index) => {
-                      return (
-                        <tr
-                          key={song.id}
-                          className="w-full cursor-pointer hover:bg-neutral-500 hover:bg-opacity-70 transition-smooth rounded-md"
-                          onClick={() => handlePlaySong(song, "songs")}
+                {type === "albums" && listResult?.tracks?.items?.length > 0 ? (
+                  listResult?.tracks?.items?.map((song, index) => {
+                    return (
+                      <tr
+                        key={song?.id}
+                        className="w-full cursor-pointer hover:bg-neutral-500 hover:bg-opacity-70 transition-smooth rounded-md relative group"
+                        onClick={() => handlePlaySong(song, "songs")}
+                      >
+                        <td className="py-3 px-3 w-14">
+                          <span className="group-hover:opacity-0 transition-opacity duration-300">
+                            {index + 1}
+                          </span>
+                          <button
+                            onClick={() => handlePlaySong(song, "songs")} // Pass song object directly
+                            className="size-6 hidden rounded-full bg-primary transform -translate-y-1/2 absolute left-2 top-1/2 opacity-0 group-hover:block group-hover:opacity-100 transition-opacity duration-300"
+                          >
+                            <PlayArrowIcon className="text-3xl" />
+                          </button>
+                        </td>
+                        <td className="py-3 pr-5 text-left">{song?.name}</td>
+                        <td className="py-3 pr-5 text-left">
+                          {song?.artists[0]?.name}
+                        </td>
+                        <td className="py-3 text-left">{listResult?.name}</td>
+                        <td className="text-center">
+                          {formatDuration(song?.duration_ms)}
+                        </td>
+                      </tr>
+                    );
+                  })
+                ) : type === "artists" && listResult?.length > 0 ? (
+                  listResult?.map((song, index) => {
+                    return (
+                      <tr
+                        key={song?.id}
+                        className="cursor-pointer hover:bg-neutral-500 hover:bg-opacity-70 transition-smooth transition-smooth relative group"
+                        onClick={() => handlePlaySong(song, "songs")}
+                      >
+                        <td className="py-3 px-3 w-14">
+                          <span className="group-hover:opacity-0 transition-opacity duration-300">
+                            {index + 1}
+                          </span>
+                          <button
+                            onClick={() => handlePlaySong(song, "songs")} // Pass song object directly
+                            className="size-6 hidden rounded-full bg-primary transform -translate-y-1/2 absolute left-2 top-1/2 opacity-0 group-hover:block group-hover:opacity-100 transition-opacity duration-300"
+                          >
+                            <PlayArrowIcon className="text-3xl" />
+                          </button>
+                        </td>
+                        <td className="py-3 pr-5 text-left">{song?.name}</td>
+                        <td className="py-3 pr-5 text-left">
+                          {song?.artists?.map((item) => item.name).join(", ")}
+                        </td>
+                        <td className="py-3 text-left">{song?.album?.name}</td>
+                        <td className="text-center">
+                          {formatDuration(song?.duration_ms)}
+                        </td>
+                      </tr>
+                    );
+                  })
+                ) : type === "podcasts" &&
+                  listResult?.episodes?.items?.length > 0 ? (
+                  listResult?.episodes?.items?.map((song, index) => {
+                    return (
+                      <tr
+                        key={song.id}
+                        className="cursor-pointer hover:bg-neutral-500 hover:bg-opacity-70 transition-smooth relative group"
+                        onClick={() => handlePlaySong(song, "podcasts")}
+                      >
+                        <td className="py-3 px-3 w-14 ">
+                          <span className="group-hover:opacity-0 transition-opacity duration-300">
+                            {index + 1}
+                          </span>
+                          <button
+                            onClick={() => handlePlaySong(song, "podcasts")} // Pass song object directly
+                            className="size-6 hidden rounded-full bg-primary transform -translate-y-1/2 absolute left-2 top-1/2 opacity-0 group-hover:block group-hover:opacity-100 transition-opacity duration-300"
+                          >
+                            <PlayArrowIcon className="text-3xl" />
+                          </button>
+                        </td>
+                        <td className="py-3 pr-5 text-left">{song?.name}</td>
+                        <td className="py-3 pr-5 text-left">
+                          {listResult?.publisher}
+                        </td>
+                        <td className="py-3 text-left">{listResult?.name}</td>
+
+                        <td className="text-center">
+                          {formatDuration(song?.duration_ms)}
+                        </td>
+                      </tr>
+                    );
+                  })
+                ) : type === "new" && listResult?.length > 0 ? (
+                  listResult?.map((song, index) => {
+                    return (
+                      <tr
+                        key={song?.id}
+                        className="w-full cursor-pointer hover:bg-neutral-500 hover:bg-opacity-70 transition-smooth rounded-md relative group"
+                        onClick={() => handlePlaySong(song, "songs")}
+                      >
+                        <td className="py-3 pl-4 w-14">
+                          <span className="group-hover:opacity-0 transition-opacity duration-300">
+                            {index + 1}
+                          </span>
+                          <button
+                            onClick={() => handlePlaySong(song, "songs")} // Pass song object directly
+                            className="size-6 hidden rounded-full bg-primary transform -translate-y-1/2 absolute left-2 top-1/2 opacity-0 group-hover:block group-hover:opacity-100 transition-opacity duration-300"
+                          >
+                            <PlayArrowIcon className="text-3xl" />
+                          </button>
+                        </td>
+                        <td className="py-3 pr-5 text-left">{song?.name}</td>
+                        <td className="py-3 pr-5 text-left">
+                          {song?.artists[0]?.name}
+                        </td>
+                        <td className="py-3 text-left">{song?.album?.name}</td>
+                        <td className="text-center group-hover:opacity-0 transition-opacity duration-300">
+                          {formatDuration(song?.duration_ms)}
+                        </td>
+                        <button
+                          className="flex justify-center items-center rounded-full absolute right-5 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                          onClick={() => {
+                            let storedPlaylists = [];
+                            storedPlaylists = JSON.parse(
+                              localStorage.getItem("playlists")
+                            );
+
+                            const updatedPlaylists = storedPlaylists.map(
+                              (playlist) => {
+                                if (playlist.id === artistsInfo.id) {
+                                  let currentSongs = playlist.songs.filter(
+                                    (item) => item.id !== song.id
+                                  );
+                                  return {
+                                    ...playlist,
+                                    songs: [...currentSongs], // Add the current song to the playlist
+                                  };
+                                }
+                                return playlist;
+                              }
+                            );
+                            // Update localStorage with the new playlists
+                            localStorage.setItem(
+                              "playlists",
+                              JSON.stringify(updatedPlaylists)
+                            );
+                            window.location.reload();
+                          }}
                         >
-                          <td className="py-3 px-3 w-14">{index + 1}</td>
-                          <td className="py-3 pr-5 text-left">{song.name}</td>
-                          <td className="py-3 pr-5 text-left">
-                            {song.artists[0].name}
-                          </td>
-                          <td className="py-3 text-left">{listResult?.name}</td>
-                          <td className="text-center">
-                            {formatDuration(song.duration_ms)}
-                          </td>
-                        </tr>
-                      );
-                    })
-                  : type === "artists" && listResult?.length > 0
-                  ? listResult?.map((song, index) => {
-                      return (
-                        <tr
-                          key={song.id}
-                          className="cursor-pointer hover:bg-neutral-500 hover:bg-opacity-70 transition-smooth transition-smooth"
-                          onClick={() => handlePlaySong(song, "songs")}
-                        >
-                          <td className="py-3 px-3 w-14">{index + 1}</td>
-                          <td className="py-3 pr-5 text-left">{song.name}</td>
-                          <td className="py-3 pr-5 text-left">
-                            {song.artists?.map((item) => item.name).join(", ")}
-                          </td>
-                          <td className="py-3 text-left">{song.album.name}</td>
-                          <td className="text-center">
-                            {formatDuration(song.duration_ms)}
-                          </td>
-                        </tr>
-                      );
-                    })
-                  : type === "podcasts" &&
-                    listResult?.episodes?.items?.length > 0
-                  ? listResult?.episodes?.items?.map((song, index) => {
-                      return (
-                        <tr
-                          key={song.id}
-                          className="cursor-pointer hover:bg-neutral-500 hover:bg-opacity-70 transition-smooth"
-                          onClick={() => handlePlaySong(song, "podcasts")}
-                        >
-                          <td className="py-3 px-3 w-14">{index + 1}</td>
-                          <td className="py-3 pr-5 text-left">{song?.name}</td>
-                          <td className="py-3 pr-5 text-left">
-                            {listResult?.publisher}
-                          </td>
-                          <td className="py-3 text-left">{listResult?.name}</td>
-                          <td className="text-center">
-                            {formatDuration(song.duration_ms)}
-                          </td>
-                        </tr>
-                      );
-                    })
-                  : type === "new" && listResult?.length > 0
-                  ? listResult?.map((song, index) => {
-                      return (
-                        <tr
-                          key={song.id}
-                          className="w-full cursor-pointer hover:bg-neutral-500 hover:bg-opacity-70 transition-smooth rounded-md"
-                          onClick={() => handlePlaySong(song, "songs")}
-                        >
-                          <td className="py-3 px-3 w-14">{index + 1}</td>
-                          <td className="py-3 pr-5 text-left">{song.name}</td>
-                          <td className="py-3 pr-5 text-left">
-                            {song.artists[0].name}
-                          </td>
-                          <td className="py-3 text-left">
-                            {song?.album?.name}
-                          </td>
-                          <td className="text-center">
-                            {formatDuration(song.duration_ms)}
-                          </td>
-                        </tr>
-                      );
-                    })
-                  : ""}
+                          <DeleteIcon />
+                        </button>
+                      </tr>
+                    );
+                  })
+                ) : (
+                  <tr className="w-full">
+                    <td colSpan={5} className="py-3 text-center">
+                      Chưa có bài hát!
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>

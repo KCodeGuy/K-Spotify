@@ -1,20 +1,20 @@
-import { useEffect, useState } from "react";
-import Inventory2Icon from "@mui/icons-material/Inventory2";
-import SearchIcon from "@mui/icons-material/Search";
-import GraphicEqIcon from "@mui/icons-material/GraphicEq";
-import CloseIcon from "@mui/icons-material/Close"; // Import Clear Icon
-import ButtonComponent from "../buttonComponent";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import SearchIcon from "@mui/icons-material/Search";
+import CloseIcon from "@mui/icons-material/Close";
+import Inventory2Icon from "@mui/icons-material/Inventory2";
+import GraphicEqIcon from "@mui/icons-material/GraphicEq";
+
+import ButtonComponent from "../buttonComponent";
 
 export default function Header() {
   const navigate = useNavigate();
-  const [searchText, setSearchText] = useState(""); // The input value with debounce applied
+  const [searchText, setSearchText] = useState("");
 
   // Debounce logic: Delay updating the searchText after user stops typing for 500ms
   useEffect(() => {
     const handler = setTimeout(() => {
       if (searchText) {
-        // Here you can make API calls or handle search logic based on searchText
         navigate(`/search/${searchText.trim()}`);
       }
     }, 500);
@@ -22,10 +22,10 @@ export default function Header() {
     return () => {
       clearTimeout(handler);
     };
-  }, [searchText]); // Runs when searchText changes
+  }, [searchText]);
 
   const handleClearSearch = () => {
-    setSearchText(""); // Clear the search input
+    setSearchText("");
   };
   return (
     <div className="flex justify-between items-center">
@@ -60,7 +60,12 @@ export default function Header() {
               onClick={handleClearSearch} // Clear search when clicked
             />
           ) : (
-            <Inventory2Icon className="text-sm" />
+            <Inventory2Icon
+              className="text-sm cursor-pointer"
+              onClick={() => {
+                navigate("/");
+              }}
+            />
           )}
         </div>
       </div>

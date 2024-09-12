@@ -1,16 +1,17 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import ViewListIcon from "@mui/icons-material/ViewList";
-import AddIcon from "@mui/icons-material/Add";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { useEffect, useState } from "react";
-import PopupComponent from "../popupComponent";
-import ButtonComponent from "../buttonComponent";
-import ErrorIcon from "@mui/icons-material/Error";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
+import QueueMusicIcon from "@mui/icons-material/QueueMusic";
+import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
+import DeleteIcon from "@mui/icons-material/Delete";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import ViewListIcon from "@mui/icons-material/ViewList";
+import ErrorIcon from "@mui/icons-material/Error";
+import AddIcon from "@mui/icons-material/Add";
+
+import ButtonComponent from "../buttonComponent";
+import PopupComponent from "../popupComponent";
 
 export default function SideBar({
   setTypePlaying,
@@ -25,7 +26,6 @@ export default function SideBar({
   const [playlists, setPlaylists] = useState([]);
   const navigate = useNavigate();
 
-  // Load playlists from localStorage on component mount
   useEffect(() => {
     const storedPlaylists = localStorage.getItem("playlists");
     if (storedPlaylists) {
@@ -38,7 +38,7 @@ export default function SideBar({
   }, []);
 
   const handlePlaySong = (song, type) => {
-    setCurrentSong(song); // Set the currently playing song
+    setCurrentSong(song);
     if (type) {
       setTypePlaying(type);
     }
@@ -51,14 +51,11 @@ export default function SideBar({
   const handleAddPlaylist = (e) => {
     e.preventDefault();
 
-    // Reset errors before validation
     const newErrors = {};
 
-    // Validate the fields
     if (!playlistTitle) {
       newErrors.playlistTitle = "Tiêu đề không được để trống!";
     }
-    // Validate the fields
     if (isDuplicatePlaylist(playlistTitle)) {
       newErrors.playlistTitle = "Tiêu đề đã tồn tại!";
     }
@@ -66,13 +63,11 @@ export default function SideBar({
       newErrors.playlistDescription = "Mô tả không được để trống!";
     }
 
-    // If there are any errors, set them and stop form submission
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
 
-    // Create the new playlist object
     const newPlaylist = {
       id: playlists.length,
       title: playlistTitle,
@@ -80,16 +75,12 @@ export default function SideBar({
       songs: [],
     };
 
-    // Add the new playlist to the list
     const updatedPlaylists = [...playlists, newPlaylist];
 
-    // Save the updated playlists to localStorage
     localStorage.setItem("playlists", JSON.stringify(updatedPlaylists));
 
-    // Update the state with the new list of playlists
     setPlaylists(updatedPlaylists);
 
-    // Reset form fields and close the popup
     setPlaylistTitle("");
     setPlaylistDescription("");
     setErrors({});
@@ -98,16 +89,13 @@ export default function SideBar({
 
   const handleDeletePlaylist = (id) => {
     const updatedPlaylists = playlists.filter((item) => item.id !== id);
-    // Update state with the new list of playlists
     setPlaylists(updatedPlaylists);
 
-    // Save the updated playlists to localStorage
     localStorage.setItem("playlists", JSON.stringify(updatedPlaylists));
   };
 
   const handleDeleteSong = (id) => {
     const updatedSongs = favoriteSongs?.filter((item) => item.id !== id);
-    // Update state with the new list of playlists
     setFavoriteSongs(updatedSongs);
     localStorage.setItem("favoriteSongs", JSON.stringify(updatedSongs));
   };
@@ -228,14 +216,14 @@ export default function SideBar({
               );
             })
           ) : (
-            <p className="font-bold text-color text-sm">Chưa có danh sách!</p>
+            <p className="text-color text-sm mt-2">Chưa có danh sách!</p>
           )}
         </ul>
       </div>
       <div className=" mt-5">
         <div className="flex justify-between">
           <div className="flex items-center">
-            <FavoriteBorderIcon />
+            <QueueMusicIcon />
             <p className="font-bold text-color ml-2">
               Nhạc yêu thích
               {favoriteSongs.length > 0
@@ -243,12 +231,6 @@ export default function SideBar({
                 : ""}
             </p>
           </div>
-          {/* <button
-            className="size-8 bg-primary rounded-full"
-            onClick={() => setIsOpenAddPlaylist(true)}
-          >
-            <AddIcon />
-          </button> */}
           <PopupComponent
             title="Tạo danh sách phát"
             description="Hãy thêm danh sách phát"
@@ -362,7 +344,9 @@ export default function SideBar({
               );
             })
           ) : (
-            <p className="font-bold text-color text-sm">Chưa có danh sách!</p>
+            <p className="text-color text-sm mt-2">
+              Chưa có bài hát yêu thích!
+            </p>
           )}
         </ul>
       </div>

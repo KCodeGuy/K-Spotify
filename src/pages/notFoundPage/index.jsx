@@ -1,6 +1,8 @@
 import GraphicEqIcon from "@mui/icons-material/GraphicEq";
-import ButtonComponent from "../../components/buttonComponent";
 import { useNavigate } from "react-router-dom";
+
+import ButtonComponent from "../../components/buttonComponent";
+
 function Notfound() {
   const navigate = useNavigate();
   return (

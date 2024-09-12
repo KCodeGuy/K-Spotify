@@ -1,15 +1,15 @@
 /* eslint-disable react/prop-types */
-import AudioPlayer from "react-h5-audio-player";
-import QueueMusicIcon from "@mui/icons-material/QueueMusic";
-import "react-h5-audio-player/lib/styles.css";
-import AddIcon from "@mui/icons-material/Add";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import PlaylistPlayIcon from "@mui/icons-material/PlaylistPlay";
-import ButtonComponent from "../buttonComponent";
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "react-h5-audio-player/lib/styles.css";
+import AudioPlayer from "react-h5-audio-player";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import AddIcon from "@mui/icons-material/Add";
+
 import { formatTimeForPlayingBar } from "../../utils/timeUltils";
-import Footer from "../footer";
 import PopupComponent from "../popupComponent";
+import Footer from "../footer";
+import ButtonComponent from "../buttonComponent";
 
 export default function PlayingNavigation({
   song,
@@ -22,12 +22,11 @@ export default function PlayingNavigation({
   let storedPlaylists = [];
   let result = JSON.parse(localStorage.getItem("playlists"));
   storedPlaylists = result;
-
+  const navigate = useNavigate();
   const selectElement = useRef();
 
   useEffect(() => {
     if (song && song.duration_ms) {
-      // Calculate the formatted duration
       setSongDuration(formatTimeForPlayingBar(song.duration_ms));
     }
   }, [song]);
@@ -47,8 +46,8 @@ export default function PlayingNavigation({
   };
 
   return (
-    <div className="bg-dark-secondary p-4 text-sm rounded-lg grid grid-cols-12 gap-4">
-      <div className="col-span-3 flex items-center mt-3 hover:bg-neutral-700 p-2 rounded-md cursor-pointer">
+    <div className="bg-dark-secondary p-4 text-sm rounded-lg grid grid-cols-12 gap-4 ">
+      <div className="col-span-3 flex items-center mt-2 hover:bg-neutral-700 p-2 rounded-md cursor-pointer">
         <div>
           <img
             className="rounded-full size-16 object-cover object-center rotate-img"
@@ -77,7 +76,7 @@ export default function PlayingNavigation({
         </div>
       </div>
 
-      <div className="col-span-6 relative">
+      <div className="col-span-6 relative mt-2">
         {type === "songs" && song?.preview_url ? (
           <AudioPlayer src={song?.preview_url} />
         ) : type === "podcasts" && song?.audio_preview_url ? (
@@ -86,7 +85,6 @@ export default function PlayingNavigation({
           <AudioPlayer />
         )}
         <div className="text-sm text-color mt-2 ">
-          {/* Display the song's duration */}
           <p
             className={`absolute top-2.5 ${
               song?.preview_url ? "left-4" : "left-2"
@@ -105,18 +103,21 @@ export default function PlayingNavigation({
           </p>
         </div>
       </div>
-      <div className="col-span-3">
+      <div className="col-span-3 mt-4">
         <div className="flex justify-center items-center">
-          <ButtonComponent onClick={() => handleAddFavoriteSong(song)}>
-            <FavoriteIcon className="mr-1 mb-1" sx={{ fontSize: "14px" }} />
-            Yêu thích
-          </ButtonComponent>
           <ButtonComponent onClick={() => setIsOpenAddPlaylist(true)}>
             <AddIcon
               className="mr-1 mb-1"
               sx={{ fontSize: "14px", fontWeight: "bold" }}
             />
             Playlist
+          </ButtonComponent>
+          <ButtonComponent
+            type="dark"
+            onClick={() => handleAddFavoriteSong(song)}
+          >
+            <FavoriteIcon className="mr-1 mb-1" sx={{ fontSize: "14px" }} />
+            Yêu thích
           </ButtonComponent>
           <PopupComponent
             title="Thêm nhạc sách phát"
@@ -127,20 +128,24 @@ export default function PlayingNavigation({
             }}
           >
             <div className="mb-3 text-sm text-white ">
-              <select
-                className="px-6 py-3 rounded-md bg-neutral-700 w-full outline-none"
-                ref={selectElement}
-              >
-                {storedPlaylists?.length > 0
-                  ? storedPlaylists.map((item, index) => {
-                      return (
-                        <option key={index} value={item.id}>
-                          {`${item.title}`}
-                        </option>
-                      );
-                    })
-                  : ""}
-              </select>
+              {storedPlaylists?.length > 0 ? (
+                <select
+                  className="px-6 py-3 rounded-md bg-neutral-700 w-full outline-none"
+                  ref={selectElement}
+                >
+                  {storedPlaylists.map((item, index) => {
+                    return (
+                      <option key={index} value={item.id}>
+                        {`${item.title}`}
+                      </option>
+                    );
+                  })}
+                </select>
+              ) : (
+                <p className="mt-1 rounded-full w-full text-sm">
+                  Chưa có danh sách. Hãy tạo danh sách!
+                </p>
+              )}
             </div>
             <p className="text-xs font-bold text-justify">
               Hãy chọn một trong những danh sách để thêm nhạc.
@@ -150,7 +155,7 @@ export default function PlayingNavigation({
                 type="dark"
                 action="button"
                 onClick={() => {
-                  setIsOpenAddPlaylist(false); // Reset fields and close the popup
+                  setIsOpenAddPlaylist(false);
                 }}
               >
                 Hủy bỏ
@@ -172,19 +177,17 @@ export default function PlayingNavigation({
                       if (!isSongAlreadyAdded) {
                         return {
                           ...playlist,
-                          songs: [...playlist.songs, song], // Add the current song to the playlist
+                          songs: [...playlist.songs, song],
                         };
                       }
                     }
                     return playlist;
                   });
-                  // Update localStorage with the new playlists
+                  navigate(`/playlist/new/${selectedPlaylistId}`);
                   localStorage.setItem(
                     "playlists",
                     JSON.stringify(updatedPlaylists)
                   );
-
-                  // Close the popup after adding the song
                   setIsOpenAddPlaylist(false);
                 }}
               >
@@ -192,12 +195,6 @@ export default function PlayingNavigation({
               </ButtonComponent>
             </div>
           </PopupComponent>
-          <button title="Lời bài hát" className="ml-2">
-            <PlaylistPlayIcon />
-          </button>
-          <button title="Danh sách chờ" className="ml-2">
-            <QueueMusicIcon />
-          </button>
         </div>
         <Footer />
       </div>

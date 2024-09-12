@@ -1,4 +1,4 @@
-@import "../../assets/base/base.scss"; // Import base.scss
+@import "../../assets/base/base.scss";
 
 .button {
   background-color: $spotify-green-color;
@@ -83,10 +83,12 @@
 
   &.md {
     padding: 8px 20px;
+    font-size: 14px;
   }
 
   &.lg {
     padding: 12px 32px;
+    font-size: 20px;
   }
 
   & + & {

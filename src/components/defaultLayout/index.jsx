@@ -1,15 +1,15 @@
-import Header from "../header";
-import SideBar from "../sideBar";
 import PlayingNavigation from "../playingNavigation";
 import React, { useEffect, useState } from "react";
 
+import Header from "../header";
+import SideBar from "../sideBar";
+
 // eslint-disable-next-line react/prop-types
 function DefaultLayout({ children }) {
-  const [currentSong, setCurrentSong] = useState(null); // State for currently playing song
+  const [currentSong, setCurrentSong] = useState(null);
   const [typePlaying, setTypePlaying] = useState("");
   const [favoriteSongs, setFavoriteSongs] = useState([]);
 
-  // Load playlists from localStorage on component mount
   useEffect(() => {
     const result = localStorage.getItem("favoriteSongs");
     if (result) {
@@ -33,7 +33,6 @@ function DefaultLayout({ children }) {
           />
         </div>
         <div className="col-span-9 rounded-lg-important h-full-screen">
-          {/* Pass state and updater function to children */}
           {React.cloneElement(children, {
             setCurrentSong,
             setTypePlaying,

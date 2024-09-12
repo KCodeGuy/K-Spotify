@@ -4,11 +4,8 @@ import axios from "axios";
 // https://developer.spotify.com/dashboard/da27b695652749f3b9b6f1ed208f021a/settings
 const client_id = "aa064d04dabe43b4bcb2ae5ca1c7fd45";
 const client_secret = "a4e0e8a3bf664c05bec2b7b5db3c0454";
-
-// Spotify API URL for token generation
 const TOKEN_URL = "https://accounts.spotify.com/api/token";
 
-// Get Spotify Access Token
 export const getSpotifyToken = async () => {
   try {
     const result = await axios.post(
@@ -27,18 +24,16 @@ export const getSpotifyToken = async () => {
   }
 };
 export const searchSpotify = async (txtSearch, accessToken) => {
-  // Construct a more specific search query with Vietnamese market context
   const query = encodeURIComponent(`${txtSearch} viet OR vietnamese`);
   const url = `https://api.spotify.com/v1/search?q=${query}&type=album,artist,track&market=VN&limit=6`;
 
   try {
     const response = await axios.get(url, {
       headers: {
-        Authorization: `Bearer ${accessToken}`, // Use the access token for authentication
+        Authorization: `Bearer ${accessToken}`,
       },
     });
 
-    // Extract data from the response and filter results based on exact match with the search text
     const { albums, artists, tracks } = response.data;
 
     const filteredAlbums = albums.items.filter((item) =>
@@ -51,7 +46,6 @@ export const searchSpotify = async (txtSearch, accessToken) => {
       item.name.toLowerCase().includes(txtSearch.toLowerCase())
     );
 
-    // Return the filtered and more relevant results
     return {
       albums: filteredAlbums.length > 0 ? filteredAlbums : [],
       artists: filteredArtists.length > 0 ? filteredArtists : [],

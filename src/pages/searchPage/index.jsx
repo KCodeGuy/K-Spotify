@@ -1,25 +1,27 @@
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { CircularProgress } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+
 import {
   getSpotifyToken,
   searchSpotify,
 } from "../../services/SpotifyAuthService";
-import { CircularProgress } from "@mui/material";
-import { useNavigate, useParams } from "react-router-dom";
+import ButtonComponent from "../../components/buttonComponent";
 
 // eslint-disable-next-line react/prop-types
 function SearchPage({ setCurrentSong, setTypePlaying }) {
   const [albums, setAlbums] = useState([]);
   const [listSongs, setListSongs] = useState([]);
   const [artists, setArtists] = useState([]);
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-
   const { txtSearch } = useParams();
 
   const handlePlaySong = (song, type) => {
-    setCurrentSong(song); // Set the currently playing song
-    setTypePlaying(type); // Set the currently playing song
+    setCurrentSong(song);
+    setTypePlaying(type);
   };
 
   useEffect(() => {
@@ -33,7 +35,6 @@ function SearchPage({ setCurrentSong, setTypePlaying }) {
             accessToken
           );
 
-          // Update state with fetched data
           setAlbums(albums);
           setListSongs(tracks);
           setArtists(artists);
@@ -41,7 +42,6 @@ function SearchPage({ setCurrentSong, setTypePlaying }) {
       } catch (error) {
         console.error("Error fetching data: ", error);
       } finally {
-        // Set loading to false after data is fetched or if an error occurs
         setLoading(false);
       }
     };
@@ -64,12 +64,14 @@ function SearchPage({ setCurrentSong, setTypePlaying }) {
                   <p className="text-xl font-bold uppercase mb-2">
                     Bài hát liên quan
                   </p>
-                  <button
-                    className="text-sm font-medium text-color hover:underline"
-                    onClick={() => navigate(`/`)}
-                  >
-                    Trở lại
-                  </button>
+                  <ButtonComponent size="md" onClick={() => navigate("/")}>
+                    <ArrowBackIcon
+                      className="mb-0.5"
+                      sx={{ fontSize: "16px" }}
+                      type="light"
+                    />{" "}
+                    Trở về
+                  </ButtonComponent>
                 </div>
                 <div className="grid grid-cols-6 gap-2">
                   {listSongs.map((song, index) => (

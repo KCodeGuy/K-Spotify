@@ -1,12 +1,13 @@
-import ButtonComponent from "../../components/buttonComponent";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { useEffect, useState } from "react";
+import { CircularProgress } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+
+import ButtonComponent from "../../components/buttonComponent";
 import { getVietnameseSongs } from "../../services/SongsService";
 import { getTopVietnameseArtists } from "../../services/ArtistService";
 import { getAlbums } from "../../services/AlbumService";
 import { getSpotifyToken } from "../../services/SpotifyAuthService";
-import { CircularProgress } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 
 const songsOptions = [
   {
@@ -118,7 +119,7 @@ function HomePage({ setCurrentSong, setTypePlaying }) {
               </button>
             </div>
             <div className="grid grid-cols-6 gap-2">
-              {listSongs.map((song, index) => (
+              {listSongs?.map((song, index) => (
                 <div
                   key={index}
                   className="p-3 hover:bg-neutral-700 rounded-md cursor-pointer w-40 relative group"
@@ -155,7 +156,7 @@ function HomePage({ setCurrentSong, setTypePlaying }) {
               </button>
             </div>
             <div className="grid grid-cols-6 gap-2">
-              {artists.map((artist) => (
+              {artists?.map((artist) => (
                 <div
                   key={artist.id}
                   className="p-3 hover:bg-neutral-700 rounded-md cursor-pointer w-40 relative group"
@@ -192,7 +193,7 @@ function HomePage({ setCurrentSong, setTypePlaying }) {
               </button>
             </div>
             <div className="grid grid-cols-6 gap-2">
-              {albums.map((album) => (
+              {albums?.map((album) => (
                 <div
                   key={album.id}
                   className="p-3 hover:bg-neutral-700 rounded-md cursor-pointer w-40 relative group"
