@@ -94,7 +94,7 @@ function ListSongs({ setCurrentSong, setTypePlaying }) {
   }, [type, id]);
   return (
     <div
-      className={`rounded-lg h-full-screen transition-smooth overflow-y-scroll h-full-screen-lg max-[1023px]:pb-36 ${randomGradient(
+      className={`rounded-lg h-full-screen transition-smooth overflow-y-scroll scrollable-content h-full-screen-lg max-[1023px]:pb-36 ${randomGradient(
         bgGradientOptions
       )}`}
     >

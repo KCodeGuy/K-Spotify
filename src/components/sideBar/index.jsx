@@ -183,7 +183,7 @@ export default function SideBar({
           </PopupComponent>
         </div>
 
-        <ul className="max-[1023px]:flex lg:block max-[1023px]:overflow-x-scroll">
+        <ul className="max-[1023px]:flex lg:block max-[1023px]:overflow-x-scroll max-[1023px]:scrollable-content">
           {playlists?.length > 0 ? (
             playlists?.map((item, index) => {
               return (
@@ -300,7 +300,7 @@ export default function SideBar({
           </PopupComponent>
         </div>
 
-        <ul className="max-[1023px]:flex lg:block max-[1023px]:overflow-x-scroll ">
+        <ul className="max-[1023px]:flex lg:block max-[1023px]:overflow-x-scroll max-[1023px]:scrollable-content">
           {favoriteSongs && favoriteSongs?.length > 0 ? (
             favoriteSongs?.map((song, index) => {
               return (

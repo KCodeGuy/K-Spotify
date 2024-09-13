@@ -76,14 +76,14 @@ function HomePage({ setCurrentSong, setTypePlaying }) {
   }, []);
 
   return (
-    <div className="bg-dark-secondary p-4 rounded-lg overflow-y-scroll h-full-screen-lg max-[1023px]:pb-40">
+    <div className="bg-dark-secondary p-4 rounded-lg overflow-y-scroll scrollable-content h-full-screen-lg max-[1023px]:pb-40">
       {loading ? (
         <div className="w-full flex justify-center items-center h-full-screen">
           <CircularProgress color="success" />
         </div>
       ) : (
         <>
-          <div className="flex items-center max-[768px]:overflow-x-scroll max-[768px]:py-2">
+          <div className="flex items-center max-[768px]:overflow-x-scroll  max-[768px]:scrollable-content max-[768px]:py-2">
             {songsOptions.map((item, index) => {
               return (
                 <ButtonComponent

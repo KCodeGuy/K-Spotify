@@ -52,7 +52,7 @@ export default function ViewAllItems({ setCurrentSong, setTypePlaying }) {
     loadData();
   }, [listName]);
   return (
-    <div className="bg-dark-secondary p-4 rounded-lg h-full-screen-lg overflow-y-scroll max-[1023px]:pb-36">
+    <div className="bg-dark-secondary p-4 rounded-lg h-full-screen-lg overflow-y-scroll scrollable-content max-[1023px]:pb-36">
       {loading ? (
         <div className="w-full flex justify-center items-center h-full-screen">
           <CircularProgress color="success" />
