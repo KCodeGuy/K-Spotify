@@ -46,7 +46,7 @@ export default function PlayingNavigation({
   };
 
   return (
-    <div className="max-[639px]:mt-10 max-[1899px]:fixed min-[1900px]:bottom-3 max-[1899px]:bottom-0  max-[1899px]:left-0 max-[1899px]:right-0 bg-dark-secondary p-4 text-sm rounded-lg grid grid-cols-12 gap-4 z-50">
+    <div className="max-[639px]:mt-10 max-[1899px]:fixed max-[1899px]:bottom-0  max-[1899px]:left-0 max-[1899px]:right-0 bg-dark-secondary p-4 text-sm rounded-lg grid grid-cols-12 gap-4 z-50">
       <div className="max-[768px]:col-span-5 md:col-span-4 lg:col-span-3 flex items-center mt-2 hover:bg-neutral-700 p-2 rounded-md cursor-pointer">
         <div>
           <img
