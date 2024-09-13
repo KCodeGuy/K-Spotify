@@ -105,7 +105,7 @@ export default function PlayingNavigation({
             customVolumeControls={[]}
           />
         ) : (
-          <AudioPlayer />
+          <AudioPlayer customVolumeControls={[]} />
         )}
         <div className="max-[768px]:text-xs md:text-sm text-color mt-2 ">
           <p
