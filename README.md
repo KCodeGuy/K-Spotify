@@ -8,8 +8,8 @@ front-end development using Spotify API to assist with fully responsive options.
 - Backend: Spotify API
 
 # Live demo: 
-- Live demo: k-spotify.netlify.app
-- 
+- Live demo: [k-spotify.netlify.app](https://k-spotify.netlify.app/)
+  
 # React + Vite
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 Currently, two official plugins are available:
