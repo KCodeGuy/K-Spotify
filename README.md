@@ -12,3 +12,5 @@ Currently, two official plugins are available:
 # Teachnologies
 - Frontend: ReactJS, React H5 Audio Player, Axios, MUI, Taiwind, Scss, Vite
 - Backend: Spotify API
+
+# Live demo: k-spotify.netlify.app
