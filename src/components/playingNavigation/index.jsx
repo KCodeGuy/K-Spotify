@@ -96,7 +96,35 @@ export default function PlayingNavigation({
         </div>
       </div>
 
-      <div className="max-[768px]:col-span-7 md:col-span-4 lg:col-span-5 xl:col-span-6 relative mt-2">
+      <div className="max-[768px]:hidden md:block max-[768px]:col-span-7 md:col-span-4 lg:col-span-5 xl:col-span-6 relative mt-2">
+        {type === "songs" && song?.preview_url ? (
+          <AudioPlayer src={song?.preview_url} />
+        ) : type === "podcasts" && song?.audio_preview_url ? (
+          <AudioPlayer src={song?.audio_preview_url} />
+        ) : (
+          <AudioPlayer />
+        )}
+        <div className="max-[768px]:text-xs md:text-sm text-color mt-2 ">
+          <p
+            className={`absolute top-2.5 ${
+              song?.preview_url ? "left-4" : "left-2"
+            }`}
+          >
+            00:00
+          </p>
+          <p
+            className={`absolute top-2.5 ${
+              song?.preview_url ? "right-4" : "right-2"
+            }`}
+          >
+            {song?.preview_url || song?.audio_preview_url
+              ? songDuration
+              : "00:00"}
+          </p>
+        </div>
+      </div>
+
+      <div className="max-[768px]:block md:hidden max-[768px]:col-span-7 md:col-span-4 lg:col-span-5 xl:col-span-6 relative mt-2">
         {type === "songs" && song?.preview_url ? (
           <AudioPlayer src={song?.preview_url} customVolumeControls={[]} />
         ) : type === "podcasts" && song?.audio_preview_url ? (
