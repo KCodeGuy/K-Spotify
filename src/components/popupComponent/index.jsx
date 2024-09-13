@@ -100,7 +100,7 @@ export default function PopupComponent({
         </Tabs>
       )}
       <DialogContent
-        sx={{ m: 0, paddingX: 3, paddingY: 3, minWidth: 380, maxWidth: 450 }}
+        sx={{ m: 0, paddingX: 3, paddingY: 3, minWidth: 340, maxWidth: 450 }}
         dividers
       >
         {tabs ? children[selectedTab] : children}

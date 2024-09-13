@@ -101,12 +101,14 @@ export default function SideBar({
   };
 
   return (
-    <div className="w-full bg-dark-secondary rounded-lg py-4 px-4 h-full-screen overflow-y-scroll">
+    <div className="w-full bg-dark-secondary rounded-lg max-[639px]:py-2 sm:py-4 px-4">
       <div>
         <div className="flex justify-between">
           <div className="flex items-center">
             <ViewListIcon />
-            <p className="font-bold text-color ml-2">Thư viện</p>
+            <p className="font-bold text-color ml-2 max-[639px]:text-sm">
+              Thư viện
+            </p>
           </div>
           <button
             className="size-8 bg-primary rounded-full"
@@ -181,28 +183,28 @@ export default function SideBar({
           </PopupComponent>
         </div>
 
-        <ul>
+        <ul className="max-[1023px]:flex lg:block max-[1023px]:overflow-x-scroll">
           {playlists?.length > 0 ? (
             playlists?.map((item, index) => {
               return (
                 <div
                   key={index}
-                  className="flex items-center mt-3 hover:bg-neutral-700 p-2 rounded-md cursor-pointer group"
+                  className="flex items-center max-[1023px]:mt-1 lg:mt-3 hover:bg-neutral-700 p-2 rounded-md cursor-pointer group max-[1023px]:min-w-52 max-[1023px]:mr-2"
                   onClick={() => navigate(`/playlist/new/${item.id}`)}
                 >
                   <div className="bg-dark-third p-3 rounded-md">
                     <LibraryMusicIcon />
                   </div>
                   <div className="ml-3 w-full">
-                    <p className="font-bold max-w-52 line-clamp-1">
-                      {item.title}
+                    <p className="font-bold max-w-52 line-clamp-1 max-[639px]:text-sm">
+                      # {item.title}
                     </p>
                     <div className="flex justify-between items-center text-xs text-color ">
                       <p className="max-w-40 line-clamp-1">
                         {item.description}
                       </p>
                       <button
-                        className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        className="max-[639px]:text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                         onClick={(e) => {
                           e.stopPropagation(); // Prevents the link from being triggered
                           handleDeletePlaylist(item.id);
@@ -220,14 +222,14 @@ export default function SideBar({
           )}
         </ul>
       </div>
-      <div className=" mt-5">
+      <div className="max-[768px]:mt-2 md:mt-5">
         <div className="flex justify-between">
           <div className="flex items-center">
             <QueueMusicIcon />
-            <p className="font-bold text-color ml-2">
+            <p className="font-bold text-color ml-2 max-[639px]:text-sm">
               Nhạc yêu thích
               {favoriteSongs.length > 0
-                ? `(${favoriteSongs?.length} bài hát)`
+                ? ` (${favoriteSongs?.length} bài hát)`
                 : ""}
             </p>
           </div>
@@ -298,12 +300,12 @@ export default function SideBar({
           </PopupComponent>
         </div>
 
-        <ul>
+        <ul className="max-[1023px]:flex lg:block max-[1023px]:overflow-x-scroll ">
           {favoriteSongs && favoriteSongs?.length > 0 ? (
             favoriteSongs?.map((song, index) => {
               return (
                 <div key={index}>
-                  <div className="flex items-center mt-3 hover:bg-neutral-700 p-1 rounded-md relative group">
+                  <div className="flex items-center max-[1023px]:mt-1 lg:mt-3 hover:bg-neutral-700 p-1 rounded-md relative group max-[1023px]:w-max max-[1023px]:mr-2">
                     <div>
                       <img
                         className="rounded-md size-10 object-cover object-center group-hover:opacity-50 transition-opacity duration-300"
@@ -315,22 +317,22 @@ export default function SideBar({
                       />
                     </div>
                     <div className="ml-3 max-w-56 text-sm">
-                      <p className="font-bold max-w-52 line-clamp-1">
+                      <p className="font-bold max-[768px]:max-w-36 md:max-w-52 line-clamp-1">
                         {song?.name || "Song Name"}
                       </p>
-                      <p className="text-color max-w-40 line-clamp-1">
+                      <p className="text-color max-[768px]:max-w-20 md:max-w-40 line-clamp-1">
                         {song?.artists
                           ?.map((artist) => artist.name)
                           .join(", ") || "Artist"}
                       </p>
                       <button
                         onClick={() => handlePlaySong(song, "songs")} // Pass song object directly
-                        className="size-6 flex justify-center items-center rounded-full bg-primary absolute left-3 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        className="size-6 flex justify-center items-center rounded-full bg-primary absolute left-3 top-1/2 transform -translate-y-1/2  opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                       >
                         <PlayArrowIcon className="text-3xl" />
                       </button>
                       <button
-                        className="flex justify-center items-center rounded-full absolute right-3 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        className="flex justify-center items-center rounded-full absolute right-3 top-1/2 transform -translate-y-1/2 max-[768px]:-translate-y-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                         onClick={(e) => {
                           e.stopPropagation(); // Prevents the link from being triggered
                           handleDeleteSong(song?.id);

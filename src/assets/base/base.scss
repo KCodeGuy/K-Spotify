@@ -61,7 +61,15 @@ body {
 }
 
 .h-full-screen {
-  height: calc(100vh - 32vh);
+  height: calc(100vh - 320px);
+}
+
+.h-full-screen-lg {
+  height: calc(100vh - 220px);
+}
+
+.h-full-screen-md {
+  height: calc(100vh - 600px);
 }
 
 .rounded-lg-important {
@@ -118,4 +126,8 @@ body {
 
 .transition-smooth {
   transition: all 0.2s linear;
+}
+
+.ml-0-ipt {
+  margin-left: 0 !important;
 }

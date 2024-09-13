@@ -52,7 +52,7 @@ export default function ViewAllItems({ setCurrentSong, setTypePlaying }) {
     loadData();
   }, [listName]);
   return (
-    <div className="bg-dark-secondary p-4 rounded-lg h-full-screen overflow-y-scroll">
+    <div className="bg-dark-secondary p-4 rounded-lg h-full-screen-lg overflow-y-scroll max-[1023px]:pb-36">
       {loading ? (
         <div className="w-full flex justify-center items-center h-full-screen">
           <CircularProgress color="success" />
@@ -61,7 +61,9 @@ export default function ViewAllItems({ setCurrentSong, setTypePlaying }) {
         <>
           <div className="mt-3">
             <div className="flex justify-between items-center">
-              <p className="text-xl font-bold uppercase mb-2">Tất cả albums</p>
+              <p className="max-[768px]:text-sm md:text-md lg:text-xl font-bold uppercase">
+                Tất cả albums
+              </p>
               <ButtonComponent size="md" onClick={() => navigate("/")}>
                 <ArrowBackIcon
                   className="mb-0.5"
@@ -71,17 +73,17 @@ export default function ViewAllItems({ setCurrentSong, setTypePlaying }) {
                 Trở về
               </ButtonComponent>
             </div>
-            <div className="grid grid-cols-6 gap-2 mt-3">
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 mt-3">
               {listResult.map((album) => (
                 <div
                   key={album.id}
-                  className="p-3 hover:bg-neutral-700 rounded-md cursor-pointer w-40 relative group"
+                  className="p-3 hover:bg-neutral-700 rounded-md cursor-pointer w-full relative group"
                   onClick={() => {
                     navigate(`/playlist/albums/${album.id}`);
                   }}
                 >
                   <img
-                    className="size-36 rounded-md"
+                    className="size-36 w-full rounded-md object-cover object-center"
                     src={album.images[0].url}
                     alt={album.name}
                   />
@@ -103,7 +105,9 @@ export default function ViewAllItems({ setCurrentSong, setTypePlaying }) {
         <>
           <div className="mt-3">
             <div className="flex justify-between items-center">
-              <p className="text-xl font-bold uppercase mb-2">Tất cả bài hát</p>
+              <p className="max-[768px]:text-sm md:text-md lg:text-xl font-bold uppercase">
+                Tất cả bài hát
+              </p>
               <ButtonComponent size="md" onClick={() => navigate("/")}>
                 <ArrowBackIcon
                   className="mb-0.5"
@@ -113,14 +117,14 @@ export default function ViewAllItems({ setCurrentSong, setTypePlaying }) {
                 Trở về
               </ButtonComponent>
             </div>
-            <div className="grid grid-cols-6 gap-2 mt-3">
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 mt-3">
               {listResult.map((song, index) => (
                 <div
                   key={index}
-                  className="p-3 hover:bg-neutral-700 rounded-md cursor-pointer w-40 relative group"
+                  className="p-3 hover:bg-neutral-700 rounded-md cursor-pointer w-full relative group"
                 >
                   <img
-                    className="size-36 rounded-md"
+                    className="size-36 w-full rounded-md object-cover object-center"
                     src={song.album.images[0].url} // Use the first image from the album's images array
                     alt={song.album.name} // Provide a meaningful alt text
                   />
@@ -145,7 +149,9 @@ export default function ViewAllItems({ setCurrentSong, setTypePlaying }) {
         <>
           <div className="mt-3">
             <div className="flex justify-between items-center">
-              <p className="text-xl font-bold uppercase mb-2">Tất cả nghệ sĩ</p>
+              <p className="max-[768px]:text-sm md:text-md lg:text-xl font-bold uppercase">
+                Tất cả nghệ sĩ
+              </p>
               <ButtonComponent size="md" onClick={() => navigate("/")}>
                 <ArrowBackIcon
                   className="mb-0.5"
@@ -155,17 +161,17 @@ export default function ViewAllItems({ setCurrentSong, setTypePlaying }) {
                 Trở về
               </ButtonComponent>
             </div>
-            <div className="grid grid-cols-6 gap-2 mt-3">
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 mt-3">
               {listResult.map((artist) => (
                 <div
                   key={artist.id}
-                  className="p-3 hover:bg-neutral-700 rounded-md cursor-pointer w-40 relative group"
+                  className="p-3 hover:bg-neutral-700 rounded-md cursor-pointer w-full relative group"
                   onClick={() => {
                     navigate(`/playlist/artists/${artist.id}`);
                   }}
                 >
                   <img
-                    className="size-36 rounded-full"
+                    className="size-36 w-full rounded-full object-cover object-center"
                     src={
                       artist.images[0]?.url || "https://via.placeholder.com/150"
                     }
@@ -187,7 +193,7 @@ export default function ViewAllItems({ setCurrentSong, setTypePlaying }) {
         <>
           <div className="mt-3">
             <div className="flex justify-between items-center">
-              <p className="text-xl font-bold uppercase mb-2">Tất cả podcast</p>
+              <p className="text-xl font-bold uppercase">Tất cả podcast</p>
               <ButtonComponent size="md" onClick={() => navigate("/")}>
                 <ArrowBackIcon
                   className="mb-0.5"
@@ -198,17 +204,17 @@ export default function ViewAllItems({ setCurrentSong, setTypePlaying }) {
               </ButtonComponent>
             </div>
 
-            <div className="grid grid-cols-6 gap-2 mt-3">
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 mt-3">
               {listResult.map((podcast) => (
                 <div
                   key={podcast.id}
-                  className="p-3 hover:bg-neutral-700 rounded-md cursor-pointer w-40 relative group"
+                  className="p-3 hover:bg-neutral-700 rounded-md cursor-pointer w-full relative group"
                   onClick={() => {
                     navigate(`/playlist/podcasts/${podcast.id}`);
                   }}
                 >
                   <img
-                    className="size-36 rounded-md"
+                    className="size-36 w-full rounded-md object-cover object-center"
                     src={podcast.images[0].url}
                     alt={podcast.name}
                   />

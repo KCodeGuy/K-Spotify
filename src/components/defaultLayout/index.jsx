@@ -21,10 +21,10 @@ function DefaultLayout({ children }) {
     }
   }, []);
   return (
-    <div className="w-full ">
+    <div className="w-full">
       <Header />
-      <div className="grid grid-cols-12 gap-4 my-3">
-        <div className="col-span-3">
+      <div className="grid grid-cols-12 gap-4 md:my-3 max-[639px]:mt-14 max-[768px]:mt-2">
+        <div className="min-[200px]:col-span-12 lg:col-span-3 bg-dark-secondary rounded-lg max-[1023px]:h-max h-full-screen-lg overflow-y-scroll">
           <SideBar
             setTypePlaying={setTypePlaying}
             favoriteSongs={favoriteSongs}
@@ -32,7 +32,7 @@ function DefaultLayout({ children }) {
             setCurrentSong={setCurrentSong}
           />
         </div>
-        <div className="col-span-9 rounded-lg-important h-full-screen">
+        <div className="min-[200px]:col-span-12 lg:col-span-9 rounded-lg-important">
           {React.cloneElement(children, {
             setCurrentSong,
             setTypePlaying,

@@ -55,14 +55,12 @@ function HomePage({ setCurrentSong, setTypePlaying }) {
       try {
         const accessToken = await getSpotifyToken();
         if (accessToken) {
-          // Execute API calls in parallel
           const [listSongs, listAlbums, fetchedArtists] = await Promise.all([
             getVietnameseSongs(accessToken),
             getAlbums(accessToken),
             getTopVietnameseArtists(accessToken),
           ]);
 
-          // Update state with fetched data
           setListSongs(listSongs);
           setAlbums(listAlbums);
           setArtists(fetchedArtists);
@@ -70,7 +68,6 @@ function HomePage({ setCurrentSong, setTypePlaying }) {
       } catch (error) {
         console.error("Error fetching data: ", error);
       } finally {
-        // Set loading to false after data is fetched or if an error occurs
         setLoading(false);
       }
     };
@@ -79,17 +76,18 @@ function HomePage({ setCurrentSong, setTypePlaying }) {
   }, []);
 
   return (
-    <div className="bg-dark-secondary p-4 rounded-lg h-full-screen overflow-y-scroll">
+    <div className="bg-dark-secondary p-4 rounded-lg overflow-y-scroll h-full-screen-lg max-[1023px]:pb-40">
       {loading ? (
         <div className="w-full flex justify-center items-center h-full-screen">
           <CircularProgress color="success" />
         </div>
       ) : (
         <>
-          <div className="flex items-center">
+          <div className="flex items-center max-[768px]:overflow-x-scroll max-[768px]:py-2">
             {songsOptions.map((item, index) => {
               return (
                 <ButtonComponent
+                  className="max-[768px]:text-xs max-[768px]:min-w-20"
                   onClick={() => {
                     if (item.name !== "allItems") {
                       navigate(`/viewAll/${item.name}`);
@@ -108,7 +106,7 @@ function HomePage({ setCurrentSong, setTypePlaying }) {
           </div>
           <div className="mt-5">
             <div className="flex justify-between items-center">
-              <p className="text-xl font-bold uppercase mb-2">
+              <p className="max-[768px]:text-sm md:text-md lg:text-xl font-bold uppercase">
                 Bảng xếp hạng nổi bật
               </p>
               <button
@@ -118,14 +116,14 @@ function HomePage({ setCurrentSong, setTypePlaying }) {
                 Xem tất cả
               </button>
             </div>
-            <div className="grid grid-cols-6 gap-2">
+            <div className="grid xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-2">
               {listSongs?.map((song, index) => (
                 <div
                   key={index}
-                  className="p-3 hover:bg-neutral-700 rounded-md cursor-pointer w-40 relative group"
+                  className="p-3 hover:bg-neutral-700 rounded-md cursor-pointer w-full relative group"
                 >
                   <img
-                    className="size-36 rounded-md object-cover object-center"
+                    className="size-36 w-full rounded-md object-cover object-center"
                     src={song.album.images[0].url} // Use the first image from the album's images array
                     alt={song.album.name} // Provide a meaningful alt text
                   />
@@ -145,7 +143,7 @@ function HomePage({ setCurrentSong, setTypePlaying }) {
               ))}
             </div>
             <div className="flex justify-between items-center mt-5">
-              <p className="text-xl font-bold uppercase mb-2">
+              <p className="max-[768px]:text-sm md:text-md lg:text-xl font-bold uppercase">
                 Nghệ sĩ nổi bật
               </p>
               <button
@@ -155,17 +153,17 @@ function HomePage({ setCurrentSong, setTypePlaying }) {
                 Xem tất cả
               </button>
             </div>
-            <div className="grid grid-cols-6 gap-2">
+            <div className="grid xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-2">
               {artists?.map((artist) => (
                 <div
                   key={artist.id}
-                  className="p-3 hover:bg-neutral-700 rounded-md cursor-pointer w-40 relative group"
+                  className="p-3 hover:bg-neutral-700 rounded-md cursor-pointer w-full relative group"
                   onClick={() => {
                     navigate(`/playlist/artists/${artist.id}`);
                   }}
                 >
                   <img
-                    className="size-36 rounded-full object-cover object-center"
+                    className=" w-full rounded-full object-cover object-center"
                     src={
                       artist.images[0]?.url || "https://via.placeholder.com/150"
                     }
@@ -182,7 +180,7 @@ function HomePage({ setCurrentSong, setTypePlaying }) {
               ))}
             </div>
             <div className="flex justify-between items-center mt-5">
-              <p className="text-xl font-bold uppercase mb-2">
+              <p className="max-[768px]:text-sm md:text-md lg:text-xl font-bold uppercase">
                 Album mới ra mắt
               </p>
               <button
@@ -192,17 +190,17 @@ function HomePage({ setCurrentSong, setTypePlaying }) {
                 Xem tất cả
               </button>
             </div>
-            <div className="grid grid-cols-6 gap-2">
+            <div className="grid xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-2s">
               {albums?.map((album) => (
                 <div
                   key={album.id}
-                  className="p-3 hover:bg-neutral-700 rounded-md cursor-pointer w-40 relative group"
+                  className="p-3 hover:bg-neutral-700 rounded-md cursor-pointer w-full relative group"
                   onClick={() => {
                     navigate(`/playlist/albums/${album.id}`);
                   }}
                 >
                   <img
-                    className="size-36 rounded-md object-cover object-center"
+                    className="size-36 w-full rounded-md object-cover object-center"
                     src={album.images[0].url}
                     alt={album.name}
                   />

@@ -94,7 +94,7 @@ function ListSongs({ setCurrentSong, setTypePlaying }) {
   }, [type, id]);
   return (
     <div
-      className={`rounded-lg h-full-screen transition-smooth overflow-y-scroll ${randomGradient(
+      className={`rounded-lg h-full-screen transition-smooth overflow-y-scroll h-full-screen-lg max-[1023px]:pb-36 ${randomGradient(
         bgGradientOptions
       )}`}
     >
@@ -104,9 +104,9 @@ function ListSongs({ setCurrentSong, setTypePlaying }) {
         </div>
       ) : (
         <>
-          <div className="p-4 flex items-end max-h-max mb-4 my-4">
+          <div className="p-4 flex max-[739px]:flex-wrap items-end max-h-max mb-4 my-4">
             <img
-              className="size-36 rounded-lg object-cover object-center"
+              className="max-[739px]:w-full md:size-36 rounded-lg object-cover object-center"
               src={
                 type !== "artists" && listResult?.images?.length > 0
                   ? listResult?.images[0]?.url
@@ -122,8 +122,8 @@ function ListSongs({ setCurrentSong, setTypePlaying }) {
                   : "Background image"
               }
             />
-            <div className="ml-6">
-              <h1 className="text-6xl font-bold pr-6">
+            <div className="max-[739px]:ml-0 max-[739px]:mt-4 md:ml-6">
+              <h1 className="sm:text-4xl lg:text-6xl font-bold pr-6">
                 {type !== "artists" && listResult?.images
                   ? listResult?.name
                   : type === "artists" && artistsInfo?.name
@@ -200,7 +200,7 @@ function ListSongs({ setCurrentSong, setTypePlaying }) {
           </div>
           <div className="w-full relative p-4">
             {/* Overlay */}
-            <div className="bg-dark-secondary opacity-20 absolute inset-0 z-0 bottom-0 right-0 left-0 min-h-80"></div>
+            <div className="bg-dark-secondary opacity-20 absolute inset-0 z-0 bottom-0 right-0 left-0 h-max"></div>
 
             {/* Buttons container */}
             <div className="relative z-20 flex justify-between items-center">
@@ -224,7 +224,7 @@ function ListSongs({ setCurrentSong, setTypePlaying }) {
               </div>
             </div>
 
-            <table className="text-sm text-color w-full mt-6 text-left">
+            <table className="text-sm text-color w-full mt-6 text-left overflow-x-scroll">
               <thead className="border-b-2 mb-2">
                 <tr>
                   <th className="py-3">STT.</th>
@@ -348,9 +348,11 @@ function ListSongs({ setCurrentSong, setTypePlaying }) {
                         </td>
                         <td className="py-3 pr-5 text-left">{song?.name}</td>
                         <td className="py-3 pr-5 text-left">
-                          {song?.artists[0]?.name}
+                          {song?.artists[0]?.name || "Nghệ sĩ"}
                         </td>
-                        <td className="py-3 text-left">{song?.album?.name}</td>
+                        <td className="py-3 text-left">
+                          {song?.album?.name || "Album"}
+                        </td>
                         <td className="text-center group-hover:opacity-0 transition-opacity duration-300">
                           {formatDuration(song?.duration_ms)}
                         </td>
